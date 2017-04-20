@@ -51,7 +51,7 @@ class Fila:
 		#para todos os clientes que estiveram na fila durante o intervalo
 		self.soma_temp_esp = self.soma_temp_esp + (len(self.fila) * temp_desd_ult)
 		#Contabiliza tempo de atendimento
-		self.soma_temp_serv = self.soma_temp_serv + (self.estado * temp_desd_ult)
+		self.soma_temp_serv = self.soma_temp_serv + (self.estado * temp_desd_ult)/self.n_maquinas
 	
 	def relat(self):
 		"""Método que calcula valores finais estatísticos"""

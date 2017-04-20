@@ -10,7 +10,7 @@ class Simulador:
 		self.event_list.insert_event(event)
 
 	#Construtor
-	def __init__(self, m_cheg_a, m_cheg_b, n_clientes, md_per_a, dv_per_a, nm_per_a, md_per_b, dv_per_b, nm_per_b, md_pol_a, dv_pol_a, nm_pol_a, md_pol_b, dv_pol_b, nm_pol_b, md_env, dv_env, nm_env,):
+	def __init__(self, m_cheg_a, m_cheg_b, n_sim, toggle_sim, md_per_a, dv_per_a, nm_per_a, md_per_b, dv_per_b, nm_per_b, md_pol_a, dv_pol_a, nm_pol_a, md_pol_b, dv_pol_b, nm_pol_b, md_env, dv_env, nm_env):
 		"""
 		#Médias das distribuições de chegadas e de atendimento no serviço
 		self.media_cheg = 1
@@ -20,7 +20,8 @@ class Simulador:
 		"""
 		self.media_cheg_a = m_cheg_a
 		self.media_cheg_b = m_cheg_b
-		self.n_clientes = n_clientes		
+		self.n_sim = n_sim
+		self.toggle_sim = toggle_sim;
 		
 		#Relógio de simulação - variável que contém o valor do tempo em cada instante
 		self.instant = 0		#valor inicial a zero
@@ -59,13 +60,22 @@ class Simulador:
 			self.act_stats()					#Actualiza valores estatísticos
 			event.executa(self.client_queue)		#Executa evento
 		"""
-		while(self.envernizamento.atendidos < self.n_clientes):
-			#print(self.event_list)
-			event = self.event_list.remove_event()
-			self.instant=event.instant
-			self.act_stats()
-			event.executa()
-		self.relat() #Apresenta resultados de simulação finais
+		if self.toggle_sim:
+			while(self.envernizamento.atendidos < self.n_sim):
+				#print(self.event_list)
+				event = self.event_list.remove_event()
+				self.instant=event.instant
+				self.act_stats()
+				event.executa()
+			self.relat() #Apresenta resultados de simulação 
+		else:
+			while(self.instant < self.n_sim):
+				#print(self.event_list)
+				event = self.event_list.remove_event()
+				self.instant=event.instant
+				self.act_stats()
+				event.executa()
+			self.relat() #Apresenta resultados de simulação 
 
 	def act_stats(self):
 		"""Método que actualiza os valores estatísticos do simulador"""
@@ -95,6 +105,6 @@ class Simulador:
 #programa principal
 
 #Cria um simulador e
-s = Simulador(5, 1.33, 300, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
+s = Simulador(5, 1.33, 300, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
 #põe-o em marcha
 s.executa()

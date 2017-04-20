@@ -18,8 +18,14 @@ class Lista:
 	
 	#Método para inserir um evento na lista de eventos
 	def insert_event(self,event):
+		"""
 		self.list.append(event)	#coloca o evento na lista
 		self.list.sort(key=lambda x: x.instant)		#ordena a lista ##100 vezes mais simples que java!
+		"""
+		i=0
+		while i<len(self.list) and self.list[i].instant < event.instant:
+			i+=1
+		self.list.insert(i, event)
 
 	def remove_event(self):
 		return self.list.pop(0)

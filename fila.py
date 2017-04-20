@@ -25,7 +25,8 @@ class Fila:
 		if(self.estado<self.n_maquinas):	#Se serviço livre,
 			self.estado = self.estado+1 #fica ocupado e
 			#agenda saída do cliente c para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
+			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 		else:
 			self.fila.append(client) #Se serviço ocupado, o cliente vai para a fila de espera
 
@@ -39,7 +40,8 @@ class Fila:
 			#vai buscar próximo cliente à fila de espera e
 			client = self.fila.pop(0)
 			#agenda a sua saida para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
+			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 
 	def act_stats(self):
 		"""Método que calcula valores para estatísticas, em cada passo da simulação ou evento"""

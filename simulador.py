@@ -21,7 +21,7 @@ class Simulador:
 		self.media_cheg_a = m_cheg_a
 		self.media_cheg_b = m_cheg_b
 		self.n_sim = n_sim
-		self.toggle_sim = toggle_sim;
+		self.toggle_sim = toggle_sim
 		
 		#Relógio de simulação - variável que contém o valor do tempo em cada instante
 		self.instant = 0		#valor inicial a zero
@@ -105,6 +105,6 @@ class Simulador:
 #programa principal
 
 #Cria um simulador e
-s = Simulador(5, 1.33, 300, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
+s = Simulador(5, 1.33, 60, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
 #põe-o em marcha
 s.executa()

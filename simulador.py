@@ -10,7 +10,7 @@ class Simulador:
 		self.event_list.insert_event(event)
 
 	#Construtor
-	def __init__(self, m_cheg_a, m_cheg_b, n_clientes):
+	def __init__(self, m_cheg_a, m_cheg_b, n_clientes, md_per_a, dv_per_a, nm_per_a, md_per_b, dv_per_b, nm_per_b, md_pol_a, dv_pol_a, nm_pol_a, md_pol_b, dv_pol_b, nm_pol_b, md_env, dv_env, nm_env,):
 		"""
 		#Médias das distribuições de chegadas e de atendimento no serviço
 		self.media_cheg = 1
@@ -27,11 +27,18 @@ class Simulador:
 		
 		#Serviço - pode haver mais do que um num simulador
 		#self.client_queue= fila.Fila(self)
+		"""
 		self.envernizamento = fila.Fila(self, 1.4, 0.3, 2, None)
 		self.polimento_a = fila.Fila(self, 4, 1.2, 1, self.envernizamento)
 		self.polimento_b = fila.Fila(self, 3, 1, 2, self.envernizamento)
 		self.perfuracao_a = fila.Fila(self, 2, 0.7, 1, self.polimento_a)
 		self.perfuracao_b = fila.Fila(self, 0.75, 0.3, 1, self.polimento_b)
+		"""
+		self.envernizamento = fila.Fila(self, md_env, dv_env, nm_env, None)
+		self.polimento_a = fila.Fila(self, md_pol_a, dv_pol_a, nm_pol_a, self.envernizamento)
+		self.polimento_b = fila.Fila(self, md_pol_b, dv_pol_b, nm_pol_b, self.envernizamento)
+		self.perfuracao_a = fila.Fila(self, md_per_a, dv_per_a, nm_per_a, self.polimento_a)
+		self.perfuracao_b = fila.Fila(self, md_per_b, dv_per_b, nm_per_b, self.polimento_b)
 		#Lista de eventos - onde ficam registados todos os eventos que vão ocorrer na simulação
 		#Cada simulador só tem uma
 		self.event_list = lista.Lista(self)
@@ -53,7 +60,7 @@ class Simulador:
 			event.executa(self.client_queue)		#Executa evento
 		"""
 		while(self.envernizamento.atendidos < self.n_clientes):
-			print(self.event_list)
+			#print(self.event_list)
 			event = self.event_list.remove_event()
 			self.instant=event.instant
 			self.act_stats()
@@ -88,6 +95,6 @@ class Simulador:
 #programa principal
 
 #Cria um simulador e
-s = Simulador(5, 1.33, 100)
+s = Simulador(5, 1.33, 300, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
 #põe-o em marcha
 s.executa()

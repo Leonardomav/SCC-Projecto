@@ -61,21 +61,23 @@ class Simulador:
 			event.executa(self.client_queue)		#Executa evento
 		"""
 		if self.toggle_sim:
-			while(self.envernizamento.atendidos < self.n_sim):
-				#print(self.event_list)
-				event = self.event_list.remove_event()
-				self.instant=event.instant
-				self.act_stats()
-				event.executa()
-			self.relat() #Apresenta resultados de simulação 
-		else:
 			while(self.instant < self.n_sim):
 				#print(self.event_list)
 				event = self.event_list.remove_event()
 				self.instant=event.instant
 				self.act_stats()
 				event.executa()
-			self.relat() #Apresenta resultados de simulação 
+			#self.relat() #Apresenta resultados de simulação
+			return self.results()
+		else:
+			while(self.envernizamento.atendidos < self.n_sim):
+				#print(self.event_list)
+				event = self.event_list.remove_event()
+				self.instant=event.instant
+				self.act_stats()
+				event.executa()
+			#self.relat() #Apresenta resultados de simulação
+			return self.results()
 
 	def act_stats(self):
 		"""Método que actualiza os valores estatísticos do simulador"""
@@ -100,11 +102,20 @@ class Simulador:
 		print("\n------------Envernizamento---------------")
 		self.envernizamento.relat()
 
+	def results(self):
+		output = [self.instant]
+		output.extend(self.perfuracao_a.results())
+		output.extend(self.perfuracao_b.results())
+		output.extend(self.polimento_a.results())
+		output.extend(self.polimento_b.results())
+		output.extend(self.envernizamento.results())
+		return output
+
 
 
 #programa principal
-
-#Cria um simulador e
-s = Simulador(5, 1.33, 60, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
-#põe-o em marcha
-s.executa()
+if __name__ == '__main__':
+	#Cria um simulador e
+	s = Simulador(5, 1.33, 60, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
+	#põe-o em marcha
+	s.executa()

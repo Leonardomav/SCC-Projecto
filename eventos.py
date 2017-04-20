@@ -35,11 +35,11 @@ class Chegada(Evento):
 		self.servico.insereClient(self.cliente) 		
 		if self.cliente.size:		#se for A
 			#Agenda nova chegada para daqui a aleatorio.exponencial(self.simulator.media_cheg) instantes
-			self.simulator.insereEvento(Chegada(self.simulator.instant+self.simulator.media_cheg_a,self.simulator,self.servico,self.cliente.size)) #sem randomizacao
-			#self.simulator.insereEvento(Chegada(self.simulator.instant+aleatorio.exponencial(self.simulator.media_cheg_a),self.simulator,self.servico,self.cliente.size))
+			#self.simulator.insereEvento(Chegada(self.simulator.instant+self.simulator.media_cheg_a,self.simulator,self.servico,self.cliente.size)) #sem randomizacao
+			self.simulator.insereEvento(Chegada(self.simulator.instant+aleatorio.exponencial(self.simulator.media_cheg_a),self.simulator,self.servico,self.cliente.size))
 		else:						#se for B
-			self.simulator.insereEvento(Chegada(self.simulator.instant+self.simulator.media_cheg_b,self.simulator,self.servico,self.cliente.size)) #sem randomizacao
-			#self.simulator.insereEvento(Chegada(self.simulator.instant+aleatorio.exponencial(self.simulator.media_cheg_b),self.simulator,self.servico,self.cliente.size))
+			#self.simulator.insereEvento(Chegada(self.simulator.instant+self.simulator.media_cheg_b,self.simulator,self.servico,self.cliente.size)) #sem randomizacao
+			self.simulator.insereEvento(Chegada(self.simulator.instant+aleatorio.exponencial(self.simulator.media_cheg_b),self.simulator,self.servico,self.cliente.size))
 
 class Saida(Evento):
 	"""Classe que representa a saída de um cliente. Deriva de Evento."""

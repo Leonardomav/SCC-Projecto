@@ -25,8 +25,8 @@ class Fila:
 		if(self.estado<self.n_maquinas):	#Se serviço livre,
 			self.estado = self.estado+1 #fica ocupado e
 			#agenda saída do cliente c para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
-			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 		else:
 			self.fila.append(client) #Se serviço ocupado, o cliente vai para a fila de espera
 
@@ -40,8 +40,8 @@ class Fila:
 			#vai buscar próximo cliente à fila de espera e
 			client = self.fila.pop(0)
 			#agenda a sua saida para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
-			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 
 	def act_stats(self):
 		"""Método que calcula valores para estatísticas, em cada passo da simulação ou evento"""
@@ -53,7 +53,7 @@ class Fila:
 		#para todos os clientes que estiveram na fila durante o intervalo
 		self.soma_temp_esp = self.soma_temp_esp + (len(self.fila) * temp_desd_ult)
 		#Contabiliza tempo de atendimento
-		self.soma_temp_serv = self.soma_temp_serv + (self.estado * temp_desd_ult)/self.n_maquinas
+		self.soma_temp_serv = self.soma_temp_serv + (self.estado * temp_desd_ult) / self.n_maquinas
 	
 	def relat(self):
 		"""Método que calcula valores finais estatísticos"""
@@ -72,4 +72,11 @@ class Fila:
 		print ("Utilizacao do servico",utilizacao_serv)
 		print ("Numero de clientes atendidos", self.atendidos)
 		print ("Numero de clientes na fila", len(self.fila))
-
+		
+	def results(self):
+		if (self.atendidos+len(self.fila)) == 0:
+			return [0, 0, 0, 0, 0]
+		temp_med_fila = self.soma_temp_esp / (self.atendidos+len(self.fila))
+		comp_med_fila = self.soma_temp_esp / self.simulator.instant
+		utilizacao_serv = self.soma_temp_serv / self.simulator.instant
+		return [temp_med_fila, comp_med_fila, utilizacao_serv, self.atendidos, len(self.fila)]

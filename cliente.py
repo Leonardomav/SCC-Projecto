@@ -3,4 +3,5 @@
 class Client:
 	"""Classe que representa um cliente
 	Como são indistintos neste exemplo, está vazia"""
-	pass
+	def __init__(self,size):
+		self.size = size	#size bool -> True = A, False = B

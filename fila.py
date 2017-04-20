@@ -7,24 +7,25 @@ class Fila:
 	"""Classe que representa um serviço com uma fila de espera associada"""
 
 	# Construtor
-	def __init__(self, sim, media_serv, desvio, n_maquinas):
-		self.fila=[]				#Fila de espera do serviço
-		self.simulator = sim		#Referência para o simulador a que pertence o serviço
-		self.estado = 0			#Variável que regista o estado do serviço: <n_maquinas - livre; n_maquinas - ocupado
+	def __init__(self, sim, media_serv, desvio, n_maquinas, proxima):
+		self.fila=[]					#Fila de espera do serviço
+		self.simulator = sim			#Referência para o simulador a que pertence o serviço
+		self.estado = 0					#Variável que regista o estado do serviço: <n_maquinas - livre; n_maquinas - ocupado
 		self.temp_last = sim.instant	#Tempo que passou desde o último evento. Neste caso 0, porque a simulação ainda não começou.
-		self.atendidos = 0		#Número de clientes atendidos até ao momento
+		self.atendidos = 0				#Número de clientes atendidos até ao momento
 		self.soma_temp_esp = 0
 		self.soma_temp_serv = 0
 		self.media_serv = media_serv
 		self.desvio = desvio
-		self.n_maquinas = n_maquinas 
+		self.n_maquinas = n_maquinas
+		self.proxima = proxima			#proxima Fila
 
 	def insereClient(self,client):
 		"""Método que insere cliente (client) no serviço"""
-		if(self.estado<n_maquinas):	#Se serviço livre,
+		if(self.estado<self.n_maquinas):	#Se serviço livre,
 			self.estado = self.estado+1 #fica ocupado e
 			#agenda saída do cliente c para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio),self.simulator))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 		else:
 			self.fila.append(client) #Se serviço ocupado, o cliente vai para a fila de espera
 
@@ -36,9 +37,9 @@ class Fila:
 			self.estado=self.estado-1	# liberta o serviço
 		else: #Se não,
 			#vai buscar próximo cliente à fila de espera e
-			self.fila.pop(0)
+			client = self.fila.pop(0)
 			#agenda a sua saida para daqui a self.media_serv instantes
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio) ,self.simulator))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
 
 	def act_stats(self):
 		"""Método que calcula valores para estatísticas, em cada passo da simulação ou evento"""
@@ -67,7 +68,6 @@ class Fila:
 		print ("Tempo medio de espera",temp_med_fila)
 		print ("Comp. medio da fila",comp_med_fila)
 		print ("Utilizacao do servico",utilizacao_serv)
-		print ("Tempo de simulacao",self.simulator.instant)
 		print ("Numero de clientes atendidos", self.atendidos)
 		print ("Numero de clientes na fila", len(self.fila))
 

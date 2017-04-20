@@ -10,7 +10,7 @@ class Simulador:
 		self.event_list.insert_event(event)
 
 	#Construtor
-	def __init__(self, m_cheg, n_clientes):
+	def __init__(self, m_cheg_a, m_cheg_b, n_clientes):
 		"""
 		#Médias das distribuições de chegadas e de atendimento no serviço
 		self.media_cheg = 1
@@ -18,7 +18,8 @@ class Simulador:
 		#Número de clientes que vão ser atendidos
 		self.n_clientes = 100
 		"""
-		self.media_cheg = m_cheg
+		self.media_cheg_a = m_cheg_a
+		self.media_cheg_b = m_cheg_b
 		self.n_clientes = n_clientes		
 		
 		#Relógio de simulação - variável que contém o valor do tempo em cada instante
@@ -26,16 +27,19 @@ class Simulador:
 		
 		#Serviço - pode haver mais do que um num simulador
 		#self.client_queue= fila.Fila(self)
-		self.perfuracao = fila.Fila(self, 2, 0.7, 1)
-		self.polimento = fila.Fila(self, 4, 1.2, 1)
-		self.envernizamento = fila.Fila(self, 1.4, 0.3, 2)
+		self.envernizamento = fila.Fila(self, 1.4, 0.3, 2, None)
+		self.polimento_a = fila.Fila(self, 4, 1.2, 1, self.envernizamento)
+		self.polimento_b = fila.Fila(self, 3, 1, 2, self.envernizamento)
+		self.perfuracao_a = fila.Fila(self, 2, 0.7, 1, self.polimento_a)
+		self.perfuracao_b = fila.Fila(self, 0.75, 0.3, 1, self.polimento_b)
 		#Lista de eventos - onde ficam registados todos os eventos que vão ocorrer na simulação
 		#Cada simulador só tem uma
 		self.event_list = lista.Lista(self)
 		
 		#Agendamento da primeira chegada
 		#Se não for feito, o simulador não tem eventos para simular
-		self.insereEvento(eventos.Chegada(self.instant, self))
+		self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_a,True))		#começa geração de A
+		self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_b,False))		#começa geração de B
 	
 	def executa(self):
 		"""Método executivo do simulador"""
@@ -53,23 +57,37 @@ class Simulador:
 			event = self.event_list.remove_event()
 			self.instant=event.instant
 			self.act_stats()
-			event.executa(
+			event.executa()
 		self.relat() #Apresenta resultados de simulação finais
 
 	def act_stats(self):
 		"""Método que actualiza os valores estatísticos do simulador"""
-		self.client_queue.act_stats()
+		self.perfuracao_a.act_stats()
+		self.perfuracao_b.act_stats()
+		self.polimento_a.act_stats()
+		self.polimento_b.act_stats()
+		self.envernizamento.act_stats()
 
 	def relat(self):
 		"""Método que apresenta os resultados de simulação finais"""
-		print ("\n\n------------FINAL RESULTS---------------\n\n")
-		self.client_queue.relat()
+		print ("\n\n------------FINAL RESULTS---------------")
+		print ("Tempo de simulacao",self.instant)
+		print("\n------------Perfuracao A---------------")
+		self.perfuracao_a.relat()
+		print("\n------------Perfuracao B---------------")
+		self.perfuracao_b.relat()		
+		print("\n------------Polimento A---------------")
+		self.polimento_a.relat()
+		print("\n------------Polimento B---------------")
+		self.polimento_b.relat()		
+		print("\n------------Envernizamento---------------")
+		self.envernizamento.relat()
 
 
 
 #programa principal
 
 #Cria um simulador e
-s = Simulador()
+s = Simulador(5, 1.33, 100)
 #põe-o em marcha
 s.executa()

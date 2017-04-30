@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import eventos
-import random
+import aleatorio
 
 class Fila:
 	"""Classe que representa um serviço com uma fila de espera associada"""
 
 	# Construtor
-	def __init__(self, sim, media_serv, desvio, n_maquinas, proxima):
+	def __init__(self, sim, media_serv, desvio, n_maquinas, proxima, stream):
 		self.fila=[]					#Fila de espera do serviço
 		self.simulator = sim			#Referência para o simulador a que pertence o serviço
 		self.estado = 0					#Variável que regista o estado do serviço: <n_maquinas - livre; n_maquinas - ocupado
@@ -19,6 +19,8 @@ class Fila:
 		self.desvio = desvio
 		self.n_maquinas = n_maquinas
 		self.proxima = proxima			#proxima Fila
+		self.stream = stream
+		self.proximo_n = None
 
 	def insereClient(self,client):
 		"""Método que insere cliente (client) no serviço"""
@@ -26,7 +28,7 @@ class Fila:
 			self.estado = self.estado+1 #fica ocupado e
 			#agenda saída do cliente c para daqui a self.media_serv instantes
 			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.variacao_normal(), self.simulator, self, client))
 		else:
 			self.fila.append(client) #Se serviço ocupado, o cliente vai para a fila de espera
 
@@ -41,7 +43,16 @@ class Fila:
 			client = self.fila.pop(0)
 			#agenda a sua saida para daqui a self.media_serv instantes
 			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.media_serv, self.simulator, self, client)) #sem randomizacao
-			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			#self.simulator.insereEvento(eventos.Saida(self.simulator.instant + random.normalvariate(self.media_serv, self.desvio), self.simulator, self, client))
+			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.variacao_normal(), self.simulator, self, client))
+
+	def variacao_normal(self):
+		if self.proximo_n:
+			temp = self.proximo_n
+			self.proximo_n = None
+			return temp
+		(temp, self.proximo_n) = aleatorio.normal(self.media_serv, self.desvio, self.stream)
+		return temp
 
 	def act_stats(self):
 		"""Método que calcula valores para estatísticas, em cada passo da simulação ou evento"""

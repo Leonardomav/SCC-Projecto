@@ -3,6 +3,7 @@
 import fila
 import lista
 import eventos
+import rand_generator
 
 class Simulador:
 	
@@ -10,36 +11,35 @@ class Simulador:
 		self.event_list.insert_event(event)
 
 	#Construtor
-	def __init__(self, m_cheg_a, m_cheg_b, n_sim, toggle_sim, md_per_a, dv_per_a, nm_per_a, md_per_b, dv_per_b, nm_per_b, md_pol_a, dv_pol_a, nm_pol_a, md_pol_b, dv_pol_b, nm_pol_b, md_env, dv_env, nm_env):
-		"""
-		#Médias das distribuições de chegadas e de atendimento no serviço
-		self.media_cheg = 1
-		self.media_serv = 1.5
-		#Número de clientes que vão ser atendidos
-		self.n_clientes = 100
-		"""
+	def __init__(self, m_cheg_a, m_cheg_b, n_sim, toggle_sim, md_per_a, dv_per_a, nm_per_a, md_per_b, dv_per_b, nm_per_b, md_pol_a, dv_pol_a, nm_pol_a, md_pol_b, dv_pol_b, nm_pol_b, md_env, dv_env, nm_env, s_cheg_a, s_cheg_b, s_per_a, s_per_b, s_pol_a, s_pol_b, s_env):
 		self.media_cheg_a = m_cheg_a
 		self.media_cheg_b = m_cheg_b
 		self.n_sim = n_sim
 		self.toggle_sim = toggle_sim
 		
+		if s_cheg_a != 0:
+			rand_generator.randst(s_cheg_a, 0)
+		if s_cheg_b != 0:
+			rand_generator.randst(s_cheg_b, 1)
+		if s_per_a != 0:
+			rand_generator.randst(s_per_a, 2)
+		if s_per_b != 0:
+			rand_generator.randst(s_per_b, 3)
+		if s_pol_a != 0:
+			rand_generator.randst(s_pol_a, 4)
+		if s_pol_b != 0:
+			rand_generator.randst(s_pol_b, 5)		
+		if s_env != 0:
+			rand_generator.randst(s_env, 6)			
+		
 		#Relógio de simulação - variável que contém o valor do tempo em cada instante
 		self.instant = 0		#valor inicial a zero
 		
-		#Serviço - pode haver mais do que um num simulador
-		#self.client_queue= fila.Fila(self)
-		"""
-		self.envernizamento = fila.Fila(self, 1.4, 0.3, 2, None)
-		self.polimento_a = fila.Fila(self, 4, 1.2, 1, self.envernizamento)
-		self.polimento_b = fila.Fila(self, 3, 1, 2, self.envernizamento)
-		self.perfuracao_a = fila.Fila(self, 2, 0.7, 1, self.polimento_a)
-		self.perfuracao_b = fila.Fila(self, 0.75, 0.3, 1, self.polimento_b)
-		"""
-		self.envernizamento = fila.Fila(self, md_env, dv_env, nm_env, None)
-		self.polimento_a = fila.Fila(self, md_pol_a, dv_pol_a, nm_pol_a, self.envernizamento)
-		self.polimento_b = fila.Fila(self, md_pol_b, dv_pol_b, nm_pol_b, self.envernizamento)
-		self.perfuracao_a = fila.Fila(self, md_per_a, dv_per_a, nm_per_a, self.polimento_a)
-		self.perfuracao_b = fila.Fila(self, md_per_b, dv_per_b, nm_per_b, self.polimento_b)
+		self.envernizamento = fila.Fila(self, md_env, dv_env, nm_env, None, 6)
+		self.polimento_b = fila.Fila(self, md_pol_b, dv_pol_b, nm_pol_b, self.envernizamento, 5)
+		self.polimento_a = fila.Fila(self, md_pol_a, dv_pol_a, nm_pol_a, self.envernizamento, 4)
+		self.perfuracao_b = fila.Fila(self, md_per_b, dv_per_b, nm_per_b, self.polimento_b, 3)
+		self.perfuracao_a = fila.Fila(self, md_per_a, dv_per_a, nm_per_a, self.polimento_a, 2)
 		#Lista de eventos - onde ficam registados todos os eventos que vão ocorrer na simulação
 		#Cada simulador só tem uma
 		self.event_list = lista.Lista(self)
@@ -52,14 +52,6 @@ class Simulador:
 	def executa(self):
 		"""Método executivo do simulador"""
 		#Enquanto não atender todos os clientes
-		"""
-		while(self.client_queue.atendidos < self.n_clientes):
-			print (self.event_list) #Mostra lista de eventos - desnecessário; é apenas informativo
-			event = self.event_list.remove_event()	#Retira primeiro evento (é o mais iminente) da lista de eventos
-			self.instant = event.instant			#Actualiza relógio de simulação
-			self.act_stats()					#Actualiza valores estatísticos
-			event.executa(self.client_queue)		#Executa evento
-		"""
 		if self.toggle_sim:
 			while(self.instant < self.n_sim):
 				#print(self.event_list)

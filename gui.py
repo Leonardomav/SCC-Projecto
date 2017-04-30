@@ -75,7 +75,6 @@ def run(results):
 
 
 
-
 	popup.resizable(width=False , height=False)
 	popup.mainloop()
 
@@ -88,7 +87,7 @@ def checkValues():
 		if isfloat(n_sim.get())==False or isfloat(m_cheg_a.get())==False or isfloat(m_cheg_b.get())==False or isint(nm_per_a.get())==False or isfloat(md_per_a.get())==False or isfloat(dv_per_a.get())==False or isint(nm_per_b.get())==False or isfloat(md_per_b.get())==False or isfloat(dv_per_b.get())==False or isint(nm_pol_a.get())==False or isfloat(md_pol_a.get())==False or isfloat(dv_pol_a.get())==False or isint(nm_pol_b.get())==False or isfloat(md_pol_b.get())==False or isfloat(dv_pol_b.get())==False or isint(nm_env.get())==False or isfloat(md_env.get())==False or isfloat(dv_env.get())==False or isint(seed_1.get())==False or isint(seed_2.get())==False or isint(seed_3.get())==False or isint(seed_4.get())==False or isint(seed_5.get())==False or isint(seed_6.get())==False or isint(seed_7.get())==False:
 			status.config(text='ERRO - Por favor verifique os valores inteiros e decimais...')
 
-		elif float(n_sim.get())<=0 or float(m_cheg_a.get())<=0 or float(m_cheg_b.get())<=0 or int(nm_per_a.get())<=0 or float(md_per_a.get())<0 or float(dv_per_a.get())<0 or int(nm_per_b.get())<=0 or float(md_per_b.get())<0 or float(dv_per_b.get())<0 or int(nm_pol_a.get())<=0 or float(md_pol_a.get())<0 or float(dv_pol_a.get())<0 or int(nm_pol_b.get())<=0 or float(md_pol_b.get())<0 or float(dv_pol_b.get())<0 or int(nm_env.get())<=0 or float(md_env.get())<0 or float(dv_env.get())<0 or int(seed_1.get())<0 or int(seed_2.get())<0 or int(seed_3.get())<0 or int(seed_4.get())<0 or int(seed_5.get())<0 or int(seed_6.get())<0 or int(seed_7.get())<0:
+		elif float(n_sim.get())<=0 or float(m_cheg_a.get())<0 or float(m_cheg_b.get())<0 or int(nm_per_a.get())<=0 or float(md_per_a.get())<0 or float(dv_per_a.get())<0 or int(nm_per_b.get())<=0 or float(md_per_b.get())<0 or float(dv_per_b.get())<0 or int(nm_pol_a.get())<=0 or float(md_pol_a.get())<0 or float(dv_pol_a.get())<0 or int(nm_pol_b.get())<=0 or float(md_pol_b.get())<0 or float(dv_pol_b.get())<0 or int(nm_env.get())<=0 or float(md_env.get())<0 or float(dv_env.get())<0 or int(seed_1.get())<0 or int(seed_2.get())<0 or int(seed_3.get())<0 or int(seed_4.get())<0 or int(seed_5.get())<0 or int(seed_6.get())<0 or int(seed_7.get())<0:
 			status.config(text='ERRO - Por favor verifique se existem valores fora dos limites')
 
 		else:
@@ -100,7 +99,7 @@ def checkValues():
 		if isint(n_sim.get())==False or isfloat(m_cheg_a.get())==False or isfloat(m_cheg_b.get())==False or isint(nm_per_a.get())==False or isfloat(md_per_a.get())==False or isfloat(dv_per_a.get())==False or isint(nm_per_b.get())==False or isfloat(md_per_b.get())==False or isfloat(dv_per_b.get())==False or isint(nm_pol_a.get())==False or isfloat(md_pol_a.get())==False or isfloat(dv_pol_a.get())==False or isint(nm_pol_b.get())==False or isfloat(md_pol_b.get())==False or isfloat(dv_pol_b.get())==False or isint(nm_env.get())==False or isfloat(md_env.get())==False or isfloat(dv_env.get())==False or isint(seed_1.get())==False or isint(seed_2.get())==False or isint(seed_3.get())==False or isint(seed_4.get())==False or isint(seed_5.get())==False or isint(seed_6.get())==False or isint(seed_7.get())==False:
 			status.config(text='ERRO - Por favor verifique os valores inteiros e decimais...')
 
-		elif int(n_sim.get())<=0 or float(m_cheg_a.get())<=0 or float(m_cheg_b.get())<=0 or int(nm_per_a.get())<=0 or float(md_per_a.get())<0 or float(dv_per_a.get())<0 or int(nm_per_b.get())<=0 or float(md_per_b.get())<0 or float(dv_per_b.get())<0 or int(nm_pol_a.get())<=0 or float(md_pol_a.get())<0 or float(dv_pol_a.get())<0 or int(nm_pol_b.get())<=0 or float(md_pol_b.get())<0 or float(dv_pol_b.get())<0 or int(nm_env.get())<=0 or float(md_env.get())<0 or float(dv_env.get())<0 or int(seed_1.get())<0 or int(seed_2.get())<0 or int(seed_3.get())<0 or int(seed_4.get())<0 or int(seed_5.get())<0 or int(seed_6.get())<0 or int(seed_7.get())<0:
+		elif int(n_sim.get())<=0 or float(m_cheg_a.get())<0 or float(m_cheg_b.get())<0 or int(nm_per_a.get())<=0 or float(md_per_a.get())<0 or float(dv_per_a.get())<0 or int(nm_per_b.get())<=0 or float(md_per_b.get())<0 or float(dv_per_b.get())<0 or int(nm_pol_a.get())<=0 or float(md_pol_a.get())<0 or float(dv_pol_a.get())<0 or int(nm_pol_b.get())<=0 or float(md_pol_b.get())<0 or float(dv_pol_b.get())<0 or int(nm_env.get())<=0 or float(md_env.get())<0 or float(dv_env.get())<0 or int(seed_1.get())<0 or int(seed_2.get())<0 or int(seed_3.get())<0 or int(seed_4.get())<0 or int(seed_5.get())<0 or int(seed_6.get())<0 or int(seed_7.get())<0:
 			status.config(text='ERRO - Por favor verifique se existem valores fora dos limites')
 
 		else:

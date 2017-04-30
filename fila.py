@@ -51,8 +51,14 @@ class Fila:
 			temp = self.proximo_n
 			self.proximo_n = None
 			return temp
-		(temp, self.proximo_n) = aleatorio.normal(self.media_serv, self.desvio, self.stream)
-		return temp
+		(temp1, temp2) = aleatorio.normal(self.media_serv, self.desvio, self.stream)
+		while temp1 < 0 and temp2 <0:
+			(temp1, temp2) = aleatorio.normal(self.media_serv, self.desvio, self.stream)
+		if temp1>=0:
+			if temp2>=0:
+				self.proximo_n=temp2
+			return temp1
+		return temp2
 
 	def act_stats(self):
 		"""Método que calcula valores para estatísticas, em cada passo da simulação ou evento"""

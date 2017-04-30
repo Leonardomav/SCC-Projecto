@@ -109,6 +109,7 @@ class Simulador:
 if __name__ == '__main__':
 	#Cria um simulador e
 	#s = Simulador(5, 1.33, 60, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2)
+	#s = Simulador(5, 1.33, 60, False, 2, 0.7, 1, 0.75, 0.3, 1, 4, 1.2, 1, 3, 1, 2, 1.4, 0.3, 2, 0, 0, 0, 0, 0, 0, 0)
 	#põe-o em marcha
 	#s.executa()
 	pass

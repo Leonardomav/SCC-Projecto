@@ -67,7 +67,7 @@ def run(results):
 	Col6.grid(row=0, column=6)
 
 	k=1
-	for i in range(1,7):
+	for i in range(1,6):
 		for j in range(1,7):
 			cell=Label(botPop, text=results[k],relief = GROOVE, bd = 2,width=25,height=3)
 			cell.grid(row=i, column=j)

@@ -53,7 +53,15 @@ class Simulador:
 	
 	def executa(self):
 		"""Método executivo do simulador"""
-		#Enquanto não atender todos os clientes
+		#se não há nenhuma chegada
+		if self.event_list.list == []:
+			if self.toggle_sim:
+				self.instant = self.n_sim
+			else:
+				self.instant = 1
+			self.act_stats()
+			self.results()
+			
 		if self.toggle_sim:
 			while(self.instant < self.n_sim):
 				#print(self.event_list)

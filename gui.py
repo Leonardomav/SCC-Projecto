@@ -46,12 +46,12 @@ def run(results):
 	PolB = Label(botPop, text="Polimento B",relief = GROOVE, bd = 4,width=20,height=3)
 	Enver = Label(botPop, text="Envernizamento",relief = GROOVE, bd = 4,width=20,height=3)
 
-	Col1 = Label(botPop, text="Tempo Médio de Espera",relief = GROOVE, bd = 4,width=25,height=3)
-	Col2 = Label(botPop, text="Comp Médio de Espera",relief = GROOVE, bd = 4,width=25,height=3)
-	Col3 = Label(botPop, text="Utilização de Serviço",relief = GROOVE,bd = 4,width=25,height=3)
-	Col4 = Label(botPop, text="Nº de Clientes Atendidos",relief = GROOVE, bd = 4,width=25,height=3)
-	Col5 = Label(botPop, text="Nº de Clientes na Fila",relief = GROOVE, bd = 4,width=25,height=3)
-	Col6 = Label(botPop, text="Nº de Clientes em Serviço",relief = GROOVE, bd = 4,width=25,height=3)
+	Col1 = Label(botPop, text="Tempo Médio de Espera",relief = GROOVE, bd = 4,width=22,height=3)
+	Col2 = Label(botPop, text="Comp Médio de Espera",relief = GROOVE, bd = 4,width=22,height=3)
+	Col3 = Label(botPop, text="Utilização de Serviço",relief = GROOVE,bd = 4,width=22,height=3)
+	Col4 = Label(botPop, text="Nº de Clientes Atendidos",relief = GROOVE, bd = 4,width=22,height=3)
+	Col5 = Label(botPop, text="Nº de Clientes na Fila",relief = GROOVE, bd = 4,width=22,height=3)
+	Col6 = Label(botPop, text="Nº de Clientes em Serviço",relief = GROOVE, bd = 4,width=22,height=3)
 
 	PerfA.grid(row=1, column=0)
 	PerfB.grid(row=2, column=0)
@@ -69,7 +69,7 @@ def run(results):
 	k=1
 	for i in range(1,6):
 		for j in range(1,7):
-			cell=Label(botPop, text=results[k],relief = GROOVE, bd = 2,width=25,height=3)
+			cell=Label(botPop, text=results[k],relief = GROOVE, bd = 2,width=22,height=3)
 			cell.grid(row=i, column=j)
 			k+=1
 

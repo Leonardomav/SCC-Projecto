@@ -93,9 +93,9 @@ class Fila:
 		print ("Numero de clientes na fila", len(self.fila))
 		
 	def results(self):
+		utilizacao_serv = self.soma_temp_serv / self.simulator.instant
 		if (self.atendidos+len(self.fila)) == 0:
-			return [0, 0, 0, 0, 0]
+			return [0, 0, utilizacao_serv, 0, 0]
 		temp_med_fila = self.soma_temp_esp / (self.atendidos+len(self.fila))
 		comp_med_fila = self.soma_temp_esp / self.simulator.instant
-		utilizacao_serv = self.soma_temp_serv / self.simulator.instant
 		return [temp_med_fila, comp_med_fila, utilizacao_serv, self.atendidos, len(self.fila)]

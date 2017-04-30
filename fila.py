@@ -95,7 +95,7 @@ class Fila:
 	def results(self):
 		utilizacao_serv = self.soma_temp_serv / self.simulator.instant
 		if (self.atendidos+len(self.fila)) == 0:
-			return [0, 0, utilizacao_serv, 0, 0]
+			return [0, 0, utilizacao_serv, 0, 0, self.estado]
 		temp_med_fila = self.soma_temp_esp / (self.atendidos+len(self.fila))
 		comp_med_fila = self.soma_temp_esp / self.simulator.instant
-		return [temp_med_fila, comp_med_fila, utilizacao_serv, self.atendidos, len(self.fila)]
+		return [temp_med_fila, comp_med_fila, utilizacao_serv, self.atendidos, len(self.fila), self.estado]

@@ -51,6 +51,7 @@ def run(results):
 	Col3 = Label(botPop, text="Utilização de Serviço",relief = GROOVE,bd = 4,width=25,height=3)
 	Col4 = Label(botPop, text="Nº de Clientes Atendidos",relief = GROOVE, bd = 4,width=25,height=3)
 	Col5 = Label(botPop, text="Nº de Clientes na Fila",relief = GROOVE, bd = 4,width=25,height=3)
+	Col6 = Label(botPop, text="Nº de Clientes em Serviço",relief = GROOVE, bd = 4,width=25,height=3)
 
 	PerfA.grid(row=1, column=0)
 	PerfB.grid(row=2, column=0)
@@ -63,13 +64,14 @@ def run(results):
 	Col3.grid(row=0, column=3)
 	Col4.grid(row=0, column=4)
 	Col5.grid(row=0, column=5)
+	Col6.grid(row=0, column=6)
+
 	k=1
-	for i in range(6):
-		for j in range(6):
-			if i!=0 and j!=0:
-				cell=Label(botPop, text=results[k],relief = GROOVE, bd = 2,width=25,height=3)
-				cell.grid(row=i, column=j)
-				k+=1
+	for i in range(1,7):
+		for j in range(1,7):
+			cell=Label(botPop, text=results[k],relief = GROOVE, bd = 2,width=25,height=3)
+			cell.grid(row=i, column=j)
+			k+=1
 
 
 

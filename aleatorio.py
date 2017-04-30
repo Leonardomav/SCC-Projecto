@@ -24,4 +24,4 @@ def normal(m, d, stream):
 	y1 = v1 * math.sqrt((-2 * math.log(w)) / w)
 	y2 = v2 * math.sqrt((-2 * math.log(w)) / w)
 	
-	return (m + y1 *d, m + y2 * d)
+	return (m + y1 * d, m + y2 * d)

@@ -46,8 +46,10 @@ class Simulador:
 		
 		#Agendamento da primeira chegada
 		#Se não for feito, o simulador não tem eventos para simular
-		self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_a,True))		#começa geração de A
-		self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_b,False))		#começa geração de B
+		if self.media_cheg_a != 0:
+			self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_a,True))		#começa geração de A
+		if self.media_cheg_b != 0:
+			self.insereEvento(eventos.Chegada(self.instant,self,self.perfuracao_b,False))		#começa geração de B
 	
 	def executa(self):
 		"""Método executivo do simulador"""

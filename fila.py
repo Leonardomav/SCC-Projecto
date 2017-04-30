@@ -47,6 +47,8 @@ class Fila:
 			self.simulator.insereEvento(eventos.Saida(self.simulator.instant + self.variacao_normal(), self.simulator, self, client))
 
 	def variacao_normal(self):
+		if self.desvio == 0:
+			return self.media_serv
 		if self.proximo_n:
 			temp = self.proximo_n
 			self.proximo_n = None

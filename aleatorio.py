@@ -14,7 +14,7 @@ def exponencial(media, stream):
 
 def normal(m, d, stream):
 	v1 = 2 * rand_generator.rand(stream) - 1
-	v2 = 2 + rand_generator.rand(stream) - 1
+	v2 = 2 * rand_generator.rand(stream) - 1
 	
 	w = pow(v1,2) + pow(v2,2)
 	
